@@ -1,7 +1,5 @@
 # Android RecyclerView with MVVM architecture + LiveData + Room 
 
-This is a simple Android App that uses the Github API to retreive and search for the most starred reops created since a spesific date. The date can be changed manually by the user. 
-
 This repository contains a detailed sample app that implements RecyclerView with MVVM architecture using LiveData, Room and Retrofit2 
 
 ## Setup
@@ -9,9 +7,6 @@ Clone this repository and import into **Android Studio**
 ```bash
 git clone git@github.com:islem19/Recyclerview-MVVM-App.git
 ```
-
-### Library reference resources:
-
 
 ## Permissions
 The App requires the following permissions:

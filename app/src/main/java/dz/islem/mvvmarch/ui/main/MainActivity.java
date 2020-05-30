@@ -1,18 +1,17 @@
 package dz.islem.mvvmarch.ui.main;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +39,7 @@ public class MainActivity extends BaseActivity<MainViewModel> {
                 DataManager.getInstance().getMessageDatabase(getApplication())
                 ,DataManager.getInstance().getRemoteService());
 
-        return ViewModelProviders.of(this,factory).get(MainViewModel.class);
+        return new ViewModelProvider(this, factory).get(MainViewModel.class);
     }
 
     @Override

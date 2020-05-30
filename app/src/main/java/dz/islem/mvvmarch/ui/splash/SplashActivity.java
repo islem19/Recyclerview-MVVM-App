@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import butterknife.ButterKnife;
 import dz.islem.mvvmarch.R;
@@ -17,7 +17,7 @@ public class SplashActivity extends BaseActivity<SplashViewModel> {
     @Override
     protected SplashViewModel createViewModel() {
         SplashViewModelFactory factory = new SplashViewModelFactory();
-        return ViewModelProviders.of(this,factory).get(SplashViewModel.class);
+        return new ViewModelProvider(this, factory).get(SplashViewModel.class);
     }
 
 

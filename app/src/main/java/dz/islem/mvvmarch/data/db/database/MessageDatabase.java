@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import dz.islem.mvvmarch.data.db.dao.MessageDAO;
 import dz.islem.mvvmarch.data.db.entity.MessageClass;
 
-@Database(entities = {MessageClass.class}, version = 2, exportSchema = false)
+@Database(entities = {MessageClass.class}, version = 2, exportSchema = true)
 public abstract class MessageDatabase extends RoomDatabase {
 
     private static MessageDatabase mInstance;

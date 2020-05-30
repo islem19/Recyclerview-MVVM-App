@@ -17,9 +17,9 @@ import dz.islem.mvvmarch.data.network.model.Message;
 import dz.islem.mvvmarch.data.network.model.Question;
 import dz.islem.mvvmarch.data.network.services.RemoteService;
 import dz.islem.mvvmarch.ui.base.BaseViewModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainViewModel extends BaseViewModel {
 
@@ -86,7 +86,23 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public void getRemoteAnswer(){
-        mRemoteService.getRestApi().getAnswer().enqueue(new AnswerCallback());
+       // mRemoteService.getRestApi().getAnswer().enqueue(new AnswerCallback());
+        mRemoteService.getRestApi().getAnswer()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<List<Answer>>() {
+                    @Override
+                    public void onSuccess(List<Answer> answers) {
+                        if (answers != null )
+                            setAnswers(answers);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onFailure: "+ e );
+
+                    }
+                });
     }
 
     void loadLocalAnswers(){
@@ -103,18 +119,5 @@ public class MainViewModel extends BaseViewModel {
         return mList;
     }
 
-    private class AnswerCallback implements Callback<List<Answer>> {
-        @Override
-        public void onResponse(Call<List<Answer>> call, Response<List<Answer>> response) {
-            if (response.body() != null )
-                setAnswers(response.body());
-        }
-
-        @Override
-        public void onFailure(Call<List<Answer>> call, Throwable t) {
-            Log.e(TAG, "onFailure: "+ t );
-
-        }
-    }
 
 }

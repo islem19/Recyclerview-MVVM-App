@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity<MainViewModel> {
     @Override
     protected MainViewModel createViewModel() {
         MainViewModelFactory factory = new MainViewModelFactory(
-                DataManager.getInstance().getMessageDatabase(getApplication())
+                DataManager.getInstance().getMessageDatabase(getApplication()).messageDao()
                 ,DataManager.getInstance().getRemoteService());
 
         return new ViewModelProvider(this, factory).get(MainViewModel.class);

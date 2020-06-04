@@ -24,20 +24,19 @@ import io.reactivex.schedulers.Schedulers;
 public class MainViewModel extends BaseViewModel {
 
     private final String TAG ="MainViewModel";
-    private MutableLiveData<List<Answer>> answers;
-    private MutableLiveData<List<Message>> savedMessage;
+    private MutableLiveData<List<Answer>> answers = new MutableLiveData<>();
+    private MutableLiveData<List<Message>> savedMessage = new MutableLiveData<>();
     private RemoteService mRemoteService;
     private MessageDAO messageDao;
     private ExecutorService mExecutorService;
     private MessageDatabase messageDb;
 
 
-    MainViewModel(MessageDatabase messageDb, RemoteService mRemoteService){
-        this.messageDb = messageDb;
+    MainViewModel(MessageDAO messageDao, RemoteService mRemoteService){
+        this.messageDao = messageDao;
         this.mRemoteService = mRemoteService;
-        this.answers = new MutableLiveData<>();
-        this.savedMessage = new MutableLiveData<>();
-        initDb();
+        mExecutorService = Executors.newSingleThreadExecutor();
+        //initDb();
     }
 
     private void initDb(){
@@ -109,7 +108,7 @@ public class MainViewModel extends BaseViewModel {
         setAnswers(createLocalAnswers());
     }
 
-    private List<Answer> createLocalAnswers(){
+    public List<Answer> createLocalAnswers(){
         String message = "hey there";
         long time = 123456;
         List<Answer> mList = new ArrayList<>();
